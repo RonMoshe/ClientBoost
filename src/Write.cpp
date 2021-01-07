@@ -25,7 +25,7 @@ void Write :: operator()() {
         int len = line.length();
 
         if (!connection.sendLine(line)) { // encode first???
-            std::cout << "Disconnected. Exiting...\n" << std::endl;
+            std::cout << "Disconnected. Exiting...Write\n" << std::endl;
             break;
         }
         // connectionHandler.sendLine(line) appends '\n' to the message. Therefor we send len+1 bytes.

@@ -7,6 +7,7 @@
 #include "../include/ConnectionHandler.h"
 #include "../include/Read.h"
 #include "../include/Write.h"
+#include <pthread.h>
 
 
 
@@ -36,6 +37,7 @@ int main (int argc, char *argv[]) {
         std::cerr << "Cannot connect to " << host << ":" << port << std::endl;
         return 1;
     }
+    //std::this_thread::sleep_for(std::chrono::seconds (5));
 
     // We can use one of three options to read data from the server:
     // 1. Read a fixed number of characters
@@ -44,15 +46,20 @@ int main (int argc, char *argv[]) {
 
     Read taskRead(connectionHandler);
     Write taskWrite(connectionHandler);
+
     std::thread taskThread1(&Read::operator(), taskRead);//taskRead.operator()()
     std::thread taskThread2(&Write::operator(), taskWrite); //taskWrite.operator()(),
 
-    taskThread1.join(); // waits for read to end - successful logout
+    taskThread1.join();
+    taskThread2.join();
+    // waits for read to end - successful logout
+    //std::string input;
+    //std::getline(std::cin, input);
     //taskWrite.setShouldTerminate(); // once we logout we want to disconnect
     // disconnecting
     //taskThread2.detach();//???
-    std::cout << "Disconnected. Exiting...\n" << std::endl;
-    std::terminate();
+    std::cout << "Disconnected. Exiting...Main\n" << std::endl;
+    //std::terminate();
 }
 
 

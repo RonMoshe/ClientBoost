@@ -6,10 +6,7 @@ all: bin/cTrace
 
 
 bin/cTrace: bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/Read.o bin/Write.o
-    	@echo 'Building target: Client'
-    	@echo 'Invoking: C++ Linker' g++ -Wall -Weffc++ -o bin/cTrace bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/Read.o bin/Write.o  $(LDFLAGS)
-        @echo 'Finished building target: Client'
-		@echo ' '
+		g++ -Wall -Weffc++ -o bin/cTrace bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/Read.o bin/Write.o $(LDFLAGS)
 
 bin/Client.o: src/Client.cpp
 		g++ $(CFLAGS) -o bin/Client.o src/Client.cpp $(LDFLAGS)
