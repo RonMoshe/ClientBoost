@@ -18,15 +18,18 @@ void Write :: operator()() {
     EncodeDecode * ed = new EncodeDecode ();
     while (true) {
         const short bufsize = 1024;
-        char buf[bufsize];
+        std::cout<<"1"<<std::endl;
+        char* buf = new char[bufsize];
+        std::cout<<"2"<<std::endl;
         std::cin.getline(buf, bufsize);
-
+        std::cout<<"3"<<std::endl;
         //std::vector<string>;
 
         std::string line(buf);
-
+        std::cout<<"4"<<std::endl;
 
         std::string encdec = ed->Encode(line);
+        std::cout<<"5"<<std::endl;
         int len = encdec.length();
 
         if (!connection.sendLine(encdec)) { // encode first???

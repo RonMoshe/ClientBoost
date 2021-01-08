@@ -14,11 +14,13 @@ void Read:: operator()(){
     bool run = true;
     EncodeDecode * ed = new EncodeDecode ();
     while(run){
+        std::cout<<"start read run "<<std::endl;
         // We can use one of three options to read data from the server:
         // 1. Read a fixed number of characters
         // 2. Read a line (up to the newline character using the getline() buffered reader
         // 3. Read up to the null character
         std::string answer;
+
         // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
         // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
         if (!connection.getLine((std::string &) answer)) {

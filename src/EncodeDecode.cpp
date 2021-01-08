@@ -2,6 +2,7 @@
 // Created by spl211 on 03/01/2021.
 //
 
+#include <iostream>
 #include "../include/EncodeDecode.h"
 
 //short bytesToShort(char *msg, int i);
@@ -34,7 +35,7 @@ short EncodeDecode:: bytesToShort(char *msg, int i) {
 
 
 
-char* EncodeDecode:: Encode(std::string line){
+std::string EncodeDecode:: Encode(std::string line){
 // supposed to have string and turn into message??
     std::string enc = "";
     short op;
@@ -99,6 +100,9 @@ char* EncodeDecode:: Encode(std::string line){
         }
     }
     msg[enc.length() + count] = '\0';
+    for(int i = 0; i < enc.length() + count; i++){
+        std::cout<<msg[i];
+    }
     return msg;
 }
 
