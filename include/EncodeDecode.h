@@ -14,7 +14,7 @@ public:
 
     std::string Decode(char msg[]);
 
-    std::string Encode(std::string line);
+    char* Encode(std::string line);
 
     short bytesToShort(char *msg, int i);
 

@@ -51,7 +51,7 @@ int main (int argc, char *argv[]) {
     std::thread taskThread2(&Write::operator(), taskWrite); //taskWrite.operator()(),
 
     taskThread1.join();
-    taskThread2.join();
+    taskThread2.detach();
     // waits for read to end - successful logout
     //std::string input;
     //std::getline(std::cin, input);

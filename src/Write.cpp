@@ -5,6 +5,7 @@
 #include <iostream>
 #include "../include/Write.h"
 #include "../include/ConnectionHandler.h"
+#include "../include/EncodeDecode.h"
 
 Write:: Write(ConnectionHandler &connectionHandler):connection(connectionHandler)
 {
@@ -14,7 +15,8 @@ Write:: Write(ConnectionHandler &connectionHandler):connection(connectionHandler
 //void Write::setShouldTerminate() {shouldTerminate = true;}
 
 void Write :: operator()() {
-    while (1/*!shouldTerminate*/) {
+    EncodeDecode * ed = new EncodeDecode ();
+    while (true) {
         const short bufsize = 1024;
         char buf[bufsize];
         std::cin.getline(buf, bufsize);
@@ -22,9 +24,12 @@ void Write :: operator()() {
         //std::vector<string>;
 
         std::string line(buf);
-        int len = line.length();
 
-        if (!connection.sendLine(line)) { // encode first???
+
+        std::string encdec = ed->Encode(line);
+        int len = encdec.length();
+
+        if (!connection.sendLine(encdec)) { // encode first???
             std::cout << "Disconnected. Exiting...Write\n" << std::endl;
             break;
         }
