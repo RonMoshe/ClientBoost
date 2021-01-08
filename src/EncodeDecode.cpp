@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "../include/EncodeDecode.h"
+#include <boost/lexical_cast.hpp>
 
 //short bytesToShort(char *msg, int i);
 
@@ -110,32 +111,22 @@ std::string EncodeDecode:: Encode(std::string line){
         count = 1;
     for(int i = 0; i < count; i++){
         int index = enc.find(" ");
-        msg = msg + enc.substr(0, index);
+        std::string s = enc.substr(0, index);
+        if(op == 6 || op == 7 || op == 9 || op == 10){
+            short myShort = boost::lexical_cast<short>(s);
+            char* num = new char[2];
+            shortToBytes(myShort, num);
+            msg.append(1, num[0]);
+            msg.append(1, num[1]);
+        }
+        else {
+            msg = msg + s;
+
+        }
         msg.append(1, '\0');
         enc = enc.substr(index + 1);
 
     }
-    /*std::cout<<msg<<std::endl;
-    while(enc.length() > 1){
-        int index = enc.find(" ");
-        if(index == 0){
-            msg = msg + enc;
-            enc = "";
-            std::cout<<"IF : " + msg<<std::endl;
-        }
-        else {
-            msg = msg + enc.substr(0, index);
-
-            std::cout<<"Else : " + msg<<std::endl;
-            if(enc.length() > index + 2) {
-                msg.append(1, '\0');
-                enc = enc.substr(index + 1);
-            }
-            else{
-                enc = "";
-            }
-        }
-    }*/
 
     if(op == 4 || op == 8) {
         msg.append(1, '\0');
