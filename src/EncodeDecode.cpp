@@ -21,12 +21,20 @@ std::string EncodeDecode::Decode(char msg[]){
             if(msg[3] == 'T')
                 result = result + "Registered";
         }
-        else {
+        if(msgOpcode == short(11) || msgOpcode == short(11)){
             int i = 4;
             while (!(msg[i] == '0')) {
                 result.append(1, msg[i]);
                 //result += std::to_string(bytesToShort(msg, i));
-                i = i + 3;
+                i = i + 2;
+            }
+        }
+        else if(msgOpcode == short(7) || msgOpcode == short(8)){
+            int i = 4;
+            while (!(msg[i] == '0')) {
+                result.append(1, msg[i]);
+                //result += std::to_string(bytesToShort(msg, i));
+                i = i + 2;
             }
         }
     }
