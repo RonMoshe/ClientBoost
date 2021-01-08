@@ -10,35 +10,20 @@
 std::string EncodeDecode::Decode(char msg[]){
     std::string result = "";
     short opcode = bytesToShort(msg, 0); // is this the correct way to extract???
+    std::cout<<"OPCODE" + opcode<<std::endl;
     short msgOpcode = bytesToShort(msg, 2);
+    std::cout<<"msgopcode" + msgOpcode<<std::endl;
     if(opcode == short(12)) {//ACK
 
         std::cout<<"DECODEEE ACK"<<std::endl;
-        result = "ACK " + std::to_string(msgOpcode) + " ";
-        if(msgOpcode == short(9)){
-            if(msg[3] == 'F')
-                result = result + "Not Registered";
-            if(msg[3] == 'T')
-                result = result + "Registered";
-        }
-        if(msgOpcode == short(11) || msgOpcode == short(11)){
-            int i = 4;
-            while (!(msg[i] == '0')) {
-                result.append(1, msg[i]);
-                //result += std::to_string(bytesToShort(msg, i));
-                i = i + 2;
-            }
-        }
-        else if(msgOpcode == short(7) || msgOpcode == short(8)){
-            int i = 4;
-            while (!(msg[i] == '0')) {
-                result.append(1, msg[i]);
-                //result += std::to_string(bytesToShort(msg, i));
-                i = i + 2;
-            }
+        result = "ACK ";
+        int index = 4;
+        while(msg[index] != '\0'){
+            result.append(1, msg[index]);
+            index = index + 1;
         }
     }
-    else if(opcode == 12){
+    else if(opcode == short(13)){
         result = "ERROR " + msgOpcode;
     }
     return result;
