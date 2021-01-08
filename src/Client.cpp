@@ -88,26 +88,29 @@ int main (int argc, char *argv[]) {
         std::string line(buf);
         int len=line.length();
         std::cout<<"before"<<std::endl;
-        //std::string encoded = ed->Encode(line);
+        std::string encoded = ed->Encode(line);
         std::cout<<"after"<<std::endl;
-
-        std::string str = "\"02ron\" + '\\0' + \"moshe\" + '\\0'";
-        if (!connectionHandler.sendLine(str)) {
+        std::string s = "02ron";
+        std::string str = s.append(1, '\0') + "moshe" ;
+        str.append(1, '\0');
+        std::cout << encoded << std::endl;
+        if (!connectionHandler.sendLine((std::string &) encoded)) {
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
         }
         // connectionHandler.sendLine(line) appends '\n' to the message. Therefor we send len+1 bytes.
-        std::cout << "Sent " << len+1 << " bytes to server" << std::endl;
+        std::cout << "Sent " << encoded.length() << " bytes to server" << std::endl;
 
 
         // We can use one of three options to read data from the server:
         // 1. Read a fixed number of characters
         // 2. Read a line (up to the newline character using the getline() buffered reader
         // 3. Read up to the null character
-        std::string answer = nullptr;
+        std::string answer;
+        std::cout << "Before read from server...\n" << std::endl;
         // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
         // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
-        if (!connectionHandler.getLine((std::string &)answer)) {
+        if (!connectionHandler.getLine(answer)) {
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
         }

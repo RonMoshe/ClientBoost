@@ -103,8 +103,10 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
 
 bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter) {
     bool result=sendBytes(frame.c_str(),frame.length());
+    std::cout<<frame<<std::endl;
     if(!result) return false;
-    return sendBytes(&delimiter,1);
+    return result;
+    //return sendBytes(&delimiter,1);
 }
 
 // Close down the connection properly.
