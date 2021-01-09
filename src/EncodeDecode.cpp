@@ -113,11 +113,19 @@ std::string EncodeDecode:: Encode(std::string line){
         int index = enc.find(" ");
         std::string s = enc.substr(0, index);
         if(op == 6 || op == 7 || op == 9 || op == 10){
-            short myShort = boost::lexical_cast<short>(s);
+            /*short myShort = boost::lexical_cast<short>(s);
             char* num = new char[2];
             shortToBytes(myShort, num);
             msg.append(1, num[0]);
-            msg.append(1, num[1]);
+            msg.append(1, num[1]);*/
+            short shor;
+            if(from_string(shor, s)){
+                char* num = new char[2];
+                shortToBytes(shor, num);
+                msg.append(1, num[1]);
+                msg.append(1, num[0]);
+            }
+
         }
         else {
             msg = msg + s;
@@ -140,3 +148,8 @@ void EncodeDecode::shortToBytes(short num, char* bytesArr)
     bytesArr[1] = (num & 0xFF);
 }
 
+// turn string into short
+bool EncodeDecode::from_string(short &sh, const std::string &str, std::ios_base& (*f)(std::ios_base&) /*= std::dec*/){
+    std::istringstream iss(str);
+    return !(iss>>f>>sh).fail();
+}
