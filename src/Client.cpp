@@ -81,7 +81,7 @@ int main (int argc, char *argv[]) {
     //From here we will see the rest of the ehco client implementation:
     EncodeDecode * ed = new EncodeDecode ();
 
-    while (1) {
+    while (true) {
         const short bufsize = 1024;
         char *buf = new char[bufsize];
         std::cin.getline(buf, bufsize);
@@ -135,7 +135,7 @@ int main (int argc, char *argv[]) {
         EncodeDecode * ed = new EncodeDecode ();
         std::string out = ed->Decode(ans);
         std::cout <<"REPLY: " + out   << std::endl << std::endl;
-        if (out.find("04")!=std::string::npos && out.find("ACK")!=std::string::npos) { // logout
+        if (out.find("ACK 4")!=std::string::npos) { // logout
             std::cout << "Exiting...Read\n" << std::endl;
 
             break;

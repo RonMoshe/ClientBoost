@@ -105,6 +105,14 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
             }
             std::cout<< "Blam"<<std::endl;
             i = i + 1;
+            if(i == 4){
+                std::cout<<"aaaaa"<<std::endl;
+                if(((short)(frame[1] & 0xff)) == ((short)13)){
+                    std::cout<<"bbbbb"<<std::endl;
+                    return true;
+                }
+            }
+
         }while (delimiter != ch || i < 4);
     } catch (std::exception& e) {
         std::cerr << "recv failed2 (Error: " << e.what() << ')' << std::endl;
