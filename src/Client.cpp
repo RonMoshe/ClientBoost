@@ -122,8 +122,11 @@ int main (int argc, char *argv[]) {
         std::cout <<"After read from server"  << std::endl;
         std::cout <<Answer  << std::endl;
         std::cout <<"After print Answer"  << std::endl;
-        char ans [answer.length()];
-        strcpy(ans, Answer.c_str());
+        char ans [Answer.length()];
+        //strcpy(ans, Answer.c_str());
+        for(int i = 0; i < Answer.length(); i++){
+            ans[i] = Answer[i];
+        }
 
         //int len=answer.length();
         // A C string must end with a 0 char delimiter.  When we filled the answer buffer from the socket

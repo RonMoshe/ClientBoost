@@ -21,13 +21,13 @@ std::string EncodeDecode::Decode(char msg[]){
 
     std::string result = "";
     short opcode = bytesToShort(msg, 0); // is this the correct way to extract???
-    std::cout<<"OPCODE" + opcode<<std::endl;
+    std::cout<<"OPCODE" + std::to_string(opcode)<<std::endl;
     short msgOpcode = bytesToShort(msg, 2);
-    std::cout<<"msgopcode" + msgOpcode<<std::endl;
+    std::cout<<"msgopcode" + std::to_string(msgOpcode)<<std::endl;
     if(opcode == short(12)) {//ACK
 
         std::cout<<"DECODEEE ACK"<<std::endl;
-        result = "ACK ";
+        result = "ACK " + std::to_string(msgOpcode) + " ";
         int index = 4;
         while(msg[index] != '\0'){
             result.append(1, msg[index]);
@@ -35,7 +35,7 @@ std::string EncodeDecode::Decode(char msg[]){
         }
     }
     else if(opcode == short(13)){
-        result = "ERROR " + msgOpcode;
+        result = "ERROR " + std::to_string(msgOpcode);
     }
     std::cout<<result + "RESSS"<<std::endl;
     return result;
@@ -44,6 +44,12 @@ std::string EncodeDecode::Decode(char msg[]){
 // decode
 short EncodeDecode:: bytesToShort(char *msg, int i) {
     short result = (short)((msg[i] & 0xff) << 8);
+    /*std::cout<<"bytes to short"<<std::endl;
+
+    std::cout<<result <<std::endl;
+    std::string s = "";
+    std::cout<<s.append(1, msg[i])<<std::endl;
+    std::cout<<s.append(1, msg[i+1])<<std::endl;*/
     result += (short)(msg[i+1] & 0xff);
     return result;
 }
@@ -113,11 +119,6 @@ std::string EncodeDecode:: Encode(std::string line){
         int index = enc.find(" ");
         std::string s = enc.substr(0, index);
         if(op == 5 || op == 6 || op == 7 || op == 9 || op == 10){
-            /*short myShort = boost::lexical_cast<short>(s);
-            char* num = new char[2];
-            shortToBytes(myShort, num);
-            msg.append(1, num[0]);
-            msg.append(1, num[1]);*/
             short shor;
             if(from_string(shor, s)){
                 char* num = new char[2];
