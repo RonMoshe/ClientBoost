@@ -13,7 +13,7 @@ connection(connectionHandler){}
 void Read:: operator()(){
     EncodeDecode * ed = new EncodeDecode ();
     while(true){
-        std::cout<<"start read run "<<std::endl;
+        //std::cout<<"start read run "<<std::endl;
         // We can use one of three options to read data from the server:
         // 1. Read a fixed number of characters
         // 2. Read a line (up to the newline character using the getline() buffered reader

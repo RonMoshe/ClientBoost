@@ -12,12 +12,11 @@ std::string EncodeDecode::Decode(char msg[]){
 
     std::string result = "";
     short opcode = bytesToShort(msg, 0); // is this the correct way to extract???
-    std::cout<<"OPCODE" + std::to_string(opcode)<<std::endl;
+    //std::cout<<"op " + std::to_string(opcode)<<std::endl;
     short msgOpcode = bytesToShort(msg, 2);
-    std::cout<<"msgopcode" + std::to_string(msgOpcode)<<std::endl;
+    //std::cout<<"msg op " + std::to_string(msgOpcode)<<std::endl;
     if(opcode == short(12)) {//ACK
-
-        std::cout<<"DECODEEE ACK"<<std::endl;
+        //std::cout<<"DECODEEE ACK"<<std::endl;
         result = "ACK " + std::to_string(msgOpcode) + " ";
         int index = 4;
         while(msg[index] != '\0'){
@@ -28,7 +27,7 @@ std::string EncodeDecode::Decode(char msg[]){
     else if(opcode == short(13)){
         result = "ERROR " + std::to_string(msgOpcode);
     }
-    std::cout<<result + "RESSS"<<std::endl;
+    //std::cout<<result + "RESSS"<<std::endl;
     return result;
 }
 
@@ -37,10 +36,10 @@ short EncodeDecode:: bytesToShort(char *msg, int i) {
     short result = (short)((msg[i] & 0xff) << 8);
     /*std::cout<<"bytes to short"<<std::endl;
 
-    std::cout<<result <<std::endl;
+    //std::cout<<result <<std::endl;
     std::string s = "";
-    std::cout<<s.append(1, msg[i])<<std::endl;
-    std::cout<<s.append(1, msg[i+1])<<std::endl;*/
+    //std::cout<<s.append(1, msg[i])<<std::endl;
+    //std::cout<<s.append(1, msg[i+1])<<std::endl;*/
     result += (short)(msg[i+1] & 0xff);
     return result;
 }
@@ -53,9 +52,9 @@ std::string EncodeDecode:: Encode(std::string line){
     std::string enc = "";
     short op;
     int currIndex = line.find(" ");
-    std::cout<<currIndex<<std::endl;
+    //std::cout<<currIndex<<std::endl;
     std::string opcode = line.substr(0, currIndex );
-    std::cout<<opcode<<std::endl;
+    //std::cout<<opcode<<std::endl;
     enc = line.substr(currIndex+1);
 
     if(opcode.compare("ADMINREG") == 0){
@@ -114,8 +113,8 @@ std::string EncodeDecode:: Encode(std::string line){
             if(from_string(shor, s)){
                 char* num = new char[2];
                 shortToBytes(shor, num);
-                std::cout<<"byte: "+ num[0]<<std::endl;
-                std::cout<<"byte: "+ num[1]<<std::endl;
+                //std::cout<<"byte: "+ num[0]<<std::endl;
+                //std::cout<<"byte: "+ num[1]<<std::endl;
                 msg.append(1, num[0]);
                 msg.append(1, num[1]);
             }
@@ -131,8 +130,8 @@ std::string EncodeDecode:: Encode(std::string line){
     /*if(op == 4 || op == 8) {
         msg.append(1, '\0');
     }*/
-    std::cout<<msg<<std::endl;
-    std::cout<<msg + " GRRR"<<std::endl;
+    //std::cout<<msg<<std::endl;
+    //std::cout<<msg + " GRRR"<<std::endl;
     return msg;
 }
 

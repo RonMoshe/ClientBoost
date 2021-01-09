@@ -87,13 +87,10 @@ int main (int argc, char *argv[]) {
         std::cin.getline(buf, bufsize);
         std::string line(buf);
         int len=line.length();
-        std::cout<<"before"<<std::endl;
+        //std::cout<<"before"<<std::endl;
         std::string encoded = ed->Encode(line);
-        std::cout<<"after"<<std::endl;
-        std::string s = "02ron";
-        std::string str = s.append(1, '\0') + "moshe" ;
-        str.append(1, '\0');
-        std::cout << encoded << std::endl;
+        //std::cout<<"after"<<std::endl;
+        //std::cout << encoded << std::endl;
         if (!connectionHandler.sendLine((std::string &) encoded)) {
             std::cout << "Disconnected. Exiting...\n" << std::endl;
             break;
@@ -107,7 +104,7 @@ int main (int argc, char *argv[]) {
         // 2. Read a line (up to the newline character using the getline() buffered reader
         // 3. Read up to the null character
         std::string answer;
-        std::cout << "Before read from server...\n" << std::endl;
+        //std::cout << "Before read from server...\n" << std::endl;
 
         // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
         // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
@@ -119,9 +116,9 @@ int main (int argc, char *argv[]) {
             std::cout << "Disconnected. Exiting...Read\n" << std::endl;
             break;
         }
-        std::cout <<"After read from server"  << std::endl;
-        std::cout <<Answer  << std::endl;
-        std::cout <<"After print Answer"  << std::endl;
+        //std::cout <<"After read from server"  << std::endl;
+        //std::cout <<Answer  << std::endl;
+        //std::cout <<"After print Answer"  << std::endl;
         char ans [Answer.length()];
         //strcpy(ans, Answer.c_str());
         for(int i = 0; i < Answer.length(); i++){
@@ -134,7 +131,7 @@ int main (int argc, char *argv[]) {
         //ans->
         EncodeDecode * ed = new EncodeDecode ();
         std::string out = ed->Decode(ans);
-        std::cout <<"REPLY: " + out   << std::endl << std::endl;
+        //std::cout <<"REPLY: " + out   << std::endl << std::endl;
         if (out.find("ACK 4")!=std::string::npos) { // logout
             std::cout << "Exiting...Read\n" << std::endl;
 
@@ -150,7 +147,7 @@ int main (int argc, char *argv[]) {
         // A C string must end with a 0 char delimiter.  When we filled the answer buffer from the socket
         // we filled up to the \n char - we must make sure now that a 0 char is also present. So we truncate last character.
         answer.resize(len-1);
-        std::cout << "Reply: " << answer << " " << len << " bytes " << std::endl << std::endl;
+        //std::cout << "Reply: " << answer << " " << len << " bytes " << std::endl << std::endl;
         if (answer == "bye") {
             std::cout << "Exiting...\n" << std::endl;
             break;
