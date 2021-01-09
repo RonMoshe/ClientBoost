@@ -112,7 +112,7 @@ std::string EncodeDecode:: Encode(std::string line){
     for(int i = 0; i < count; i++){
         int index = enc.find(" ");
         std::string s = enc.substr(0, index);
-        if(op == 6 || op == 7 || op == 9 || op == 10){
+        if(op == 5 || op == 6 || op == 7 || op == 9 || op == 10){
             /*short myShort = boost::lexical_cast<short>(s);
             char* num = new char[2];
             shortToBytes(myShort, num);
@@ -122,8 +122,10 @@ std::string EncodeDecode:: Encode(std::string line){
             if(from_string(shor, s)){
                 char* num = new char[2];
                 shortToBytes(shor, num);
-                msg.append(1, num[1]);
+                std::cout<<"byte: "+ num[0]<<std::endl;
+                std::cout<<"byte: "+ num[1]<<std::endl;
                 msg.append(1, num[0]);
+                msg.append(1, num[1]);
             }
 
         }

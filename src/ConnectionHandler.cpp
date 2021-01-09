@@ -97,7 +97,7 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
 
                 return false;
             }
-            if(ch!='\0' || i < 4) {
+            if(ch!='\0' || i < 3) {
                 std::cout<< "Bloop"<<std::endl;
                 if((ch == '\0'))
                     std::cout<< ": ("<<std::endl;
@@ -105,7 +105,7 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
             }
             std::cout<< "Blam"<<std::endl;
             i = i + 1;
-        }while (delimiter != ch || i < 4);
+        }while (delimiter != ch || i < 3);
     } catch (std::exception& e) {
         std::cerr << "recv failed2 (Error: " << e.what() << ')' << std::endl;
         return false;

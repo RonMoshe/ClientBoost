@@ -130,8 +130,9 @@ int main (int argc, char *argv[]) {
         // we filled up to the \n char - we must make sure now that a 0 char is also present. So we truncate last character.
         //ans->
         EncodeDecode * ed = new EncodeDecode ();
-        std::cout <<"REPLY: " + ed->Decode(ans)   << std::endl << std::endl;
-        if (answer.find("04")!=std::string::npos && answer.find("12")!=std::string::npos) { // logout
+        std::string out = ed->Decode(ans);
+        std::cout <<"REPLY: " + out   << std::endl << std::endl;
+        if (out.find("04")!=std::string::npos && out.find("ACK")!=std::string::npos) { // logout
             std::cout << "Exiting...Read\n" << std::endl;
 
             break;
