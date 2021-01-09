@@ -9,15 +9,6 @@
 //short bytesToShort(char *msg, int i);
 
 std::string EncodeDecode::Decode(char msg[]){
-    /*short sh = 12;
-    char* msh = new char[2];
-    shortToBytes(sh,msh );
-    std::string h ="";
-    h.append(1, msh[0]);
-    h.append(1, msh[1]);
-    std::cout<<h<<std::endl;
-    short t = bytesToShort(msh, 0);
-    std::cout<<t<<std::endl;*/
 
     std::string result = "";
     short opcode = bytesToShort(msg, 0); // is this the correct way to extract???
@@ -132,13 +123,14 @@ std::string EncodeDecode:: Encode(std::string line){
         }
         else {
             msg = msg + s;
+            msg.append(1, '\0');
         }
-        msg.append(1, '\0');
+
         enc = enc.substr(index + 1);
     }
-    if(op == 4 || op == 8) {
+    /*if(op == 4 || op == 8) {
         msg.append(1, '\0');
-    }
+    }*/
     std::cout<<msg<<std::endl;
     std::cout<<msg + " GRRR"<<std::endl;
     return msg;
