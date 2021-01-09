@@ -22,6 +22,7 @@ void Write :: operator()() {
         char* buf = new char[bufsize];
         std::cout<<"2"<<std::endl;
         std::cin.getline(buf, bufsize);
+
         std::cout<<"3"<<std::endl;
         //std::vector<string>;
 
@@ -29,10 +30,10 @@ void Write :: operator()() {
         std::cout<<"4"<<std::endl;
 
         std::string encdec = ed->Encode(line);
-        std::cout<<"5"<<std::endl;
+        std::cout<<encdec<<std::endl;
         int len = encdec.length();
 
-        if (!connection.sendLine(encdec)) { // encode first???
+        if (!connection.sendLine((std::string &)encdec)) { // encode first???
             std::cout << "Disconnected. Exiting...Write\n" << std::endl;
             break;
         }
