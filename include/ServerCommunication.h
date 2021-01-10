@@ -17,9 +17,10 @@ public:
 
     void run();
 private:
-    ConnectionHandler &connectionHandler;
 
     std::mutex &mtx;
+
+    ConnectionHandler &connectionHandler;
 
     MessageQueue &messageQueue;
 

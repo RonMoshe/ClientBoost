@@ -12,7 +12,7 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_), shouldTerminate(false){}
+ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_){}
 
 ConnectionHandler::~ConnectionHandler() {
     close();
@@ -139,10 +139,6 @@ void ConnectionHandler::close() {
         std::cout << "closing failed: connection already closed" << std::endl;
     }
 }
-
-bool ConnectionHandler::setShouldTerminate() { shouldTerminate = true;}
-
-bool ConnectionHandler::getShouldTerminate() {return shouldTerminate;}
 
 ConnectionHandler::ConnectionHandler(ConnectionHandler const &handler):host_(handler.host_),
          port_(handler.port_), io_service_(), socket_(io_service_){}

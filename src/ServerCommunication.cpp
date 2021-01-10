@@ -44,7 +44,7 @@ void ServerCommunication::run() {
             //std::cout <<"After print Answer"  << std::endl;
             char ans[Answer.length()];
             //strcpy(ans, Answer.c_str());
-            for (int i = 0; i < Answer.length(); i++) {
+            for (unsigned int i = 0; i < Answer.length(); i++) {
                 ans[i] = Answer[i];
             }
 
