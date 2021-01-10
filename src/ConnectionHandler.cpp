@@ -82,12 +82,12 @@ bool ConnectionHandler::sendLine(std::string& line) {
 
 
 bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
-    //std::cout<<"GEt frame asciii"<<std::endl;
+    std::cout<<"GEt frame asciii"<<std::endl;
     char ch;
     // Stop when we encounter the null character.
     // Notice that the null character is not appended to the frame string.
     try {
-        //std::cout<< "Trying"<<std::endl;
+        std::cout<< "Trying"<<std::endl;
         int i = 0;
         do{
             if(!getBytes(&ch, 1))
@@ -96,12 +96,12 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
                 return false;
             }
             if(ch!='\0' || i < 3) {
-                //std::cout<< "Bloop"<<std::endl;
+                std::cout<< "Bloop"<<std::endl;
                 if((ch == '\0'))
-                    //std::cout<< ": ("<<std::endl;
+                    std::cout<< ": ("<<std::endl;
                 frame.append(1, ch);
             }
-            //std::cout<< "Blam"<<std::endl;
+            std::cout<< "Blam"<<std::endl;
             i = i + 1;
             if(i == 4){
                 if(((short)(frame[1] & 0xff)) == ((short)13)){
@@ -114,7 +114,8 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
         std::cerr << "recv failed2 (Error: " << e.what() << ')' << std::endl;
         return false;
     }
-    //std::cout<< "BLAA"<<std::endl;
+    std::cout<< "BLAA"<<std::endl;
+    frame.append(1, '\0');
     return true;
 }
 

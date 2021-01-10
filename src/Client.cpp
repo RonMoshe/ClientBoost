@@ -131,7 +131,7 @@ int main (int argc, char *argv[]) {
         //ans->
         EncodeDecode * ed = new EncodeDecode ();
         std::string out = ed->Decode(ans);
-        //std::cout <<"REPLY: " + out   << std::endl << std::endl;
+        std::cout <<"REPLY: " + out   << std::endl << std::endl;
         if (out.find("ACK 4")!=std::string::npos) { // logout
             std::cout << "Exiting...Read\n" << std::endl;
 

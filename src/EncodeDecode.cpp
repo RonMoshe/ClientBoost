@@ -19,6 +19,10 @@ std::string EncodeDecode::Decode(char msg[]){
         //std::cout<<"DECODEEE ACK"<<std::endl;
         result = "ACK " + std::to_string(msgOpcode) + " ";
         int index = 4;
+        /*for(int i = 0 ; i <){
+            result.append(1, msg[index]);
+            index = index + 1;
+        }*/
         while(msg[index] != '\0'){
             result.append(1, msg[index]);
             index = index + 1;
