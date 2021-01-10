@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <string>
+#include <mutex>
 
 class MessageQueue {
 public:
@@ -21,6 +22,8 @@ public:
 
 private:
     std::vector<std::string> messageQueue;
+
+    std::mutex mtx;
 
 };
 
