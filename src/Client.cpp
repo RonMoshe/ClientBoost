@@ -24,6 +24,11 @@
 #include "../include/Read.h"
 #include "../include/Write.h"
 #include "../include/EncodeDecode.h"
+#include "../include/MessageQueue.h"
+#include "../include/KeyboardReader.h"
+#include "../include/ServerCommunication.h"
+
+void keyboardRead();
 
 /*int main (int argc, char *argv[]) {
     if (argc < 3) {
@@ -79,9 +84,18 @@ int main(int argc, char *argv[]) {
         std::cerr << "Cannot connect to " << host << ":" << port << std::endl;
         return 1;
     }
-    std::vector<std::string> messageQueue;
+    MessageQueue msgQueue;
+    KeyboardReader keyRead;
+    ServerCommunication srvrC((ConnectionHandler &) connectionHandler);
+    std::thread taskKeyboard(keyRead, std::ref(msgQueue));
+    std::thread taskServerC(srvrC, std::ref(msgQueue));
+    taskServerC.join();
+    taskKeyboard.detach();
+    std::cout<<"Exiting...Finished program"<<std::endl;
+
 
 }
+
 
 /*int main (int argc, char *argv[]) {
     if (argc < 3) {
@@ -171,7 +185,7 @@ int main(int argc, char *argv[]) {
             break;
         }*/
 
-        return 0;
+        /*return 0;
     }
 }*/
 

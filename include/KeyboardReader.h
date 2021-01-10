@@ -6,9 +6,11 @@
 #define CLIENT_KEYBOARDREADER_H
 
 
+#include "MessageQueue.h"
+
 class KeyboardReader {
 public:
-    void operator()();
+    void operator()(MessageQueue msgQueue);
 
 };
 

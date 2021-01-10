@@ -8,16 +8,17 @@
 
 #include "ConnectionHandler.h"
 #include "EncodeDecode.h"
+#include "MessageQueue.h"
 
 class ServerCommunication {
 public:
-    ServerCommunication(ConnectionHandler &connectionHandler, EncodeDecode &encodeDecode);
+    ServerCommunication(ConnectionHandler &connectionHandler);
 
-    void operator()();
+    void operator()(MessageQueue msgQueue);
 private:
     ConnectionHandler connectionHandler;
 
-    EncodeDecode encdec;
+    //EncodeDecode encdec;
 };
 
 
