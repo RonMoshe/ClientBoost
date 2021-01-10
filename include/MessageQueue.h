@@ -11,14 +11,16 @@
 
 class MessageQueue {
 public:
-    void Push(std::string msg);
+    void Enqueue(std::string msg);
 
-    std::string Pop();
+    std::string Dequeue();
 
     bool isEmpty();
 
+    MessageQueue();
+
 private:
-    std::vector<std::string> MessageQueue;
+    std::vector<std::string> messageQueue;
 
 };
 
