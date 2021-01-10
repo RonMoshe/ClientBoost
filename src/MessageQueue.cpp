@@ -6,7 +6,7 @@
 #include "../include/MessageQueue.h"
 #include "mutex"
 
-MessageQueue::MessageQueue(): messageQueue(), mtx(){}
+MessageQueue::MessageQueue(): messageQueue(), mtx(), terminate(false){}
 
 void MessageQueue::Enqueue(std::string msg){
     messageQueue.push_back(msg);
@@ -24,3 +24,5 @@ std::string MessageQueue::Dequeue() {
 bool MessageQueue::isEmpty() {
     return messageQueue.size() == 0;
 }
+
+bool MessageQueue::shouldTerminate(){ return terminate; }

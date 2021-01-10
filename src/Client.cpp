@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
     std::thread taskKeyboard(&KeyboardReader::run, &keyboardReader);
     std::thread taskServerC(&ServerCommunication::run, &srvrC);
     taskServerC.join();
+
     taskKeyboard.detach();
     std::cout<<"Exiting...Finished program"<<std::endl;
 }

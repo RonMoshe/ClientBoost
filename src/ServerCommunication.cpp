@@ -14,6 +14,11 @@ void ServerCommunication::run() {
         if(!messageQueue.isEmpty()) {
             std::cout<<"Message queue not empty"<<std::endl;
             std::string line = messageQueue.Dequeue();
+            bool waiting = false;
+            if(line.find("Logout") !=std::string::npos){
+                waiting = true;
+                pthread_mutex_lock(reinterpret_cast<pthread_mutex_t *>(&mtx));
+            }
             std::string encoded = encdec->Encode(line);
             //std::cout<<"after"<<std::endl;
             //std::cout << encoded << std::endl;
@@ -45,11 +50,16 @@ void ServerCommunication::run() {
 
             std::string out = encdec->Decode(ans);
             std::cout << "REPLY: " + out << std::endl << std::endl;
+            if(waiting) {
+               std::cout<<"WAITed - lock"<<std::endl;
+                    mtx.unlock();
+            }
             if (out.find("ACK 4") != std::string::npos) { // logout
-                std::cout << "Exiting...Read\n" << std::endl;
+                std::cout << "Exiting...\n" << std::endl;
 
                 break;
             }
+
         }
     }
 

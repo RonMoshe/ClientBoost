@@ -19,5 +19,14 @@ void KeyboardReader::run() {
         //if(line.find("LOGOUT") != std::string::npos)
         //std::cout<<line<<std::endl;
         messageQueue.Enqueue(line);
+        if(line.find("LOGOUT") != std::string::npos) {
+            mtx.lock();
+            if(messageQueue.shouldTerminate()) {
+                std::cout<<"keyboard terminate"<<std::endl;
+                break;
+            }
+        }
+
     }
+
 }

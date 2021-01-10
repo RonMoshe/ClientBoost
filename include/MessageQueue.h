@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <mutex>
+#include <atomic>
 
 class MessageQueue {
 public:
@@ -20,10 +21,14 @@ public:
 
     MessageQueue();
 
+    bool shouldTerminate();
+
 private:
     std::vector<std::string> messageQueue;
 
     std::mutex mtx;
+
+    std::atomic_bool terminate;
 
 };
 
