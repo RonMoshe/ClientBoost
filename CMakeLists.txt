@@ -9,7 +9,7 @@ if(Boost_FOUND)
     add_executable(Client include/ConnectionHandler.h
             src/ConnectionHandler.cpp
             src/Client.cpp include/EncodeDecode.h src/EncodeDecode.cpp
-            include/Read.h src/Read.cpp include/Write.h src/Write.cpp)
+            include/Read.h src/Read.cpp include/Write.h src/Write.cpp src/ServerCommunication.cpp include/ServerCommunication.h src/KeyboardReader.cpp include/KeyboardReader.h src/MessageQueue.cpp include/MessageQueue.h)
     target_link_libraries(Client $ {Boost_LIBRARIES})
 endif()
 

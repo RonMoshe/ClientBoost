@@ -10,14 +10,14 @@
 
 class Write {
 public:
-    Write(ConnectionHandler &connectionHandler);
-
-    void operator()();
+    //Write(ConnectionHandler &connectionHandler);
+    Write();
+    void operator()(ConnectionHandler &connectionHandler);
 
     //void setShouldTerminate();
 
 private:
-    ConnectionHandler connection;
+    //ConnectionHandler connection;
 
     //std::atomic_bool shouldTerminate;
 

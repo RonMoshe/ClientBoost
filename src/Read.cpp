@@ -7,11 +7,13 @@
 #include "../include/ConnectionHandler.h"
 #include "../include/EncodeDecode.h"
 
-Read :: Read(ConnectionHandler &connectionHandler):
-connection(connectionHandler){}
+Read::Read(){}
+//Read :: Read(ConnectionHandler &connectionHandler):
+//connection(connectionHandler){}
 
-void Read:: operator()(){
+void Read:: operator()(ConnectionHandler &connection){
     EncodeDecode * ed = new EncodeDecode ();
+
     while(true){
         //std::cout<<"start read run "<<std::endl;
         // We can use one of three options to read data from the server:
@@ -22,9 +24,9 @@ void Read:: operator()(){
 
         // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
         // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
-        if(!connection.getLine((std::string &) answer)) {
-            std::cout << "Disconnected. Exiting...Read\n" << std::endl;
-            break;
+        while(!connection.getLine((std::string &) answer)) {
+            //std::cout << "Disconnected. Exiting...Read\n" << std::endl;
+            //break;
         }
 
         char ans[answer.length()];
@@ -38,8 +40,10 @@ void Read:: operator()(){
         //ans->
         std::string out = ed->Decode(ans);
         std::cout << out  << std::endl << std::endl;
-        if (out.find("04")!=std::string::npos && out.find("ACK")!=std::string::npos) { // logout
+        if (out.find("ACK 4")!=std::string::npos) { // logout
             std::cout << "Exiting...Read\n" << std::endl;
+            connection.setShouldTerminate();
+            //mtx.unlock();
             break;
         }
     }

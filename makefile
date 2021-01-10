@@ -2,7 +2,7 @@
 LDFLAGS:=-lboost_system -lboost_thread -pthread
 
 
-all: bin/cTrace
+all: bin/ctrace
 
 
 bin/cTrace: bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/Read.o bin/Write.o

@@ -12,7 +12,7 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_){}
+ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_), shouldTerminate(false){}
 
 ConnectionHandler::~ConnectionHandler() {
     close();
@@ -49,7 +49,7 @@ bool ConnectionHandler::getBytes(char bytes[], unsigned int bytesToRead) {
         if(error)
             throw boost::system::system_error(error);
     } catch (std::exception& e) {
-        std::cerr << "recv failed0 (Error: " << e.what() << ')' << std::endl;
+        //std::cerr << "recv failed0 from server(Error: " << e.what() << ')' << std::endl;
         return false;
     }
     return true;
@@ -65,7 +65,7 @@ bool ConnectionHandler::sendBytes(const char bytes[], int bytesToWrite) {
         if(error)
             throw boost::system::system_error(error);
     } catch (std::exception& e) {
-        std::cerr << "recv failed1 (Error: " << e.what() << ')' << std::endl;
+        std::cerr << "recv failed1 to server(Error: " << e.what() << ')' << std::endl;
         return false;
     }
     return true;
@@ -111,7 +111,7 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
 
         }while (delimiter != ch || i < 4);
     } catch (std::exception& e) {
-        std::cerr << "recv failed2 (Error: " << e.what() << ')' << std::endl;
+        std::cerr << "recv failed2 Get from server (Error: " << e.what() << ')' << std::endl;
         return false;
     }
     //std::cout<< "BLAA"<<std::endl;
@@ -123,7 +123,10 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
 bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter) {
     bool result=sendBytes(frame.c_str(),frame.length());
     //std::cout<<frame<<std::endl;
-    if(!result) return false;
+    if(!result) {
+        std::cout<<"not sent"<<std::endl;
+        return false;
+    }
     return result;
     //return sendBytes(&delimiter,1);
 }
@@ -136,6 +139,10 @@ void ConnectionHandler::close() {
         std::cout << "closing failed: connection already closed" << std::endl;
     }
 }
+
+bool ConnectionHandler::setShouldTerminate() { shouldTerminate = true;}
+
+bool ConnectionHandler::getShouldTerminate() {return shouldTerminate;}
 
 ConnectionHandler::ConnectionHandler(ConnectionHandler const &handler):host_(handler.host_),
          port_(handler.port_), io_service_(), socket_(io_service_){}

@@ -10,11 +10,12 @@
 
 class Read {
 public:
-    Read(ConnectionHandler &connectionHandler);
-    void operator()();
+    Read();
+    //Read(ConnectionHandler &connectionHandler);
+    void operator()(ConnectionHandler &connection);
 
 private:
-    ConnectionHandler connection;
+    //ConnectionHandler connection;
 };
 
 

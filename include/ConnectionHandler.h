@@ -17,6 +17,7 @@ private:
     const short port_;
     boost::asio::io_service io_service_;   // Provides core I/O functionality
     tcp::socket socket_;
+    std::atomic_bool shouldTerminate;
 
 public:
     ConnectionHandler(std::string host, short port);
@@ -53,6 +54,10 @@ public:
     void close();
 
     ConnectionHandler(ConnectionHandler const &handler);
+
+    bool setShouldTerminate();
+
+    bool getShouldTerminate();
 
 
 }; //class ConnectionHandler
