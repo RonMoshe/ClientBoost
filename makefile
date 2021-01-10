@@ -2,11 +2,11 @@
 LDFLAGS:=-lboost_system -lboost_thread -pthread
 
 
-all: bin/cTrace
+all: bin/BGRSclient
 
 
-bin/cTrace: bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/KeyboardReader.o bin/ServerCommunication.o bin/MessageQueue.o
-		g++ -Wall -Weffc++ -o bin/cTrace bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/KeyboardReader.o bin/ServerCommunication.o bin/MessageQueue.o $(LDFLAGS)
+bin/BGRSclient: bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/KeyboardReader.o bin/ServerCommunication.o bin/MessageQueue.o
+		g++ -Wall -Weffc++ -o bin/BGRSclient bin/Client.o bin/ConnectionHandler.o bin/EncodeDecode.o bin/KeyboardReader.o bin/ServerCommunication.o bin/MessageQueue.o $(LDFLAGS)
 
 bin/Client.o: src/Client.cpp
 		g++ $(CFLAGS) -o bin/Client.o src/Client.cpp $(LDFLAGS)
