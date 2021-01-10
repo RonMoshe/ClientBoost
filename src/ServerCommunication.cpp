@@ -4,20 +4,15 @@
 
 #include "../include/ServerCommunication.h"
 
-ServerCommunication::ServerCommunication(ConnectionHandler &connectionHandler1):
-connectionHandler(connectionHandler1){}
+ServerCommunication::ServerCommunication(std::mutex &mutex, ConnectionHandler &connectionHandler1,
+MessageQueue &messageQueue1):
+mtx(mutex), connectionHandler(connectionHandler1), messageQueue(messageQueue1){}
 
-void ServerCommunication::operator()(MessageQueue msgQueue) {
+void ServerCommunication::run() {
     EncodeDecode *encdec = new EncodeDecode();
     while (true) {
-        if(!msgQueue.isEmpty()) {
-            std::string line = msgQueue.Dequeue();
-            /*const short bufsize = 1024;
-            char *buf = new char[bufsize];
-            //std::cin.getline(buf, bufsize);
-            std::string line(buf);*/
-
-            //std::cout<<"before"<<std::endl;
+        if(!messageQueue.isEmpty()) {
+            std::string line = messageQueue.Dequeue();
             std::string encoded = encdec->Encode(line);
             //std::cout<<"after"<<std::endl;
             //std::cout << encoded << std::endl;
@@ -27,14 +22,6 @@ void ServerCommunication::operator()(MessageQueue msgQueue) {
             }
             // connectionHandler.sendLine(line) appends '\n' to the message. Therefor we send len+1 bytes.
             std::cout << "Sent " << encoded.length() << " bytes to server" << std::endl;
-
-
-            // We can use one of three options to read data from the server:
-            // 1. Read a fixed number of characters
-            // 2. Read a line (up to the newline character using the getline() buffered reader
-            // 3. Read up to the null character
-            //std::string answer;
-            //std::cout << "Before read from server...\n" << std::endl;
 
             // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
             // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end

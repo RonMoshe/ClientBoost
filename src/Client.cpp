@@ -84,11 +84,12 @@ int main(int argc, char *argv[]) {
         std::cerr << "Cannot connect to " << host << ":" << port << std::endl;
         return 1;
     }
+    std::mutex mtx;
     MessageQueue msgQueue;
-    KeyboardReader keyRead;
-    ServerCommunication srvrC((ConnectionHandler &) connectionHandler);
-    std::thread taskKeyboard(keyRead, std::ref(msgQueue));
-    std::thread taskServerC(srvrC, std::ref(msgQueue));
+    KeyboardReader keyboardReader((std::mutex &)mtx, (MessageQueue &) msgQueue);
+    ServerCommunication srvrC((std::mutex &) mtx, (ConnectionHandler &) connectionHandler, (MessageQueue &)msgQueue);
+    std::thread taskKeyboard(&KeyboardReader::run, &keyboardReader);
+    std::thread taskServerC(&ServerCommunication::run, &srvrC);
     taskServerC.join();
     taskKeyboard.detach();
     std::cout<<"Exiting...Finished program"<<std::endl;

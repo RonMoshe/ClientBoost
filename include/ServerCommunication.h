@@ -12,11 +12,16 @@
 
 class ServerCommunication {
 public:
-    ServerCommunication(ConnectionHandler &connectionHandler);
+    ServerCommunication(std::mutex &mutex, ConnectionHandler &connectionHandler,
+    MessageQueue &messageQueue);
 
-    void operator()(MessageQueue msgQueue);
+    void run();
 private:
     ConnectionHandler connectionHandler;
+
+    std::mutex &mtx;
+
+    MessageQueue &messageQueue;
 
     //EncodeDecode encdec;
 };

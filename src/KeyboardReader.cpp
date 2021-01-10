@@ -7,13 +7,16 @@
 #include "../include/KeyboardReader.h"
 #include "../include/MessageQueue.h"
 
-void KeyboardReader::operator()(MessageQueue msgQueue) {
+KeyboardReader::KeyboardReader(std::mutex &mutex, MessageQueue &messageQueue1): mtx(mutex),
+messageQueue(messageQueue1){}
+
+void KeyboardReader::run() {
     while(true) {
         const short bufsize = 1024;
         char *buf = new char[bufsize];
         std::cin.getline(buf, bufsize);
         std::string line(buf);
         //if(line.find("LOGOUT") != std::string::npos)
-        msgQueue.Enqueue(line);
+        messageQueue.Enqueue(line);
     }
 }

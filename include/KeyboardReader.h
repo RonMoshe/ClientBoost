@@ -10,7 +10,12 @@
 
 class KeyboardReader {
 public:
-    void operator()(MessageQueue msgQueue);
+    KeyboardReader(std::mutex &mutex, MessageQueue &messageQueue);
+    void run();
+private:
+    std::mutex &mtx;
+
+    MessageQueue &messageQueue;
 
 };
 
