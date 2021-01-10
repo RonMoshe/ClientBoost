@@ -22,13 +22,10 @@ bool ConnectionHandler::connect() {
     std::cout << "Starting connect to "
               << host_ << ":" << port_ << std::endl;
     try {
-        //std::cout<<"in try"<<endl;
         tcp::endpoint endpoint(boost::asio::ip::address::from_string(host_), port_); // the server endpoint
         boost::system::error_code error;
         socket_.connect(endpoint, error);
-        //std::cout<<"end try"<<endl;
         if (error) {
-            //std::cout<<"ERROR"<<endl;
             throw boost::system::system_error(error);
         }
     }
@@ -72,7 +69,6 @@ bool ConnectionHandler::sendBytes(const char bytes[], int bytesToWrite) {
 }
 
 bool ConnectionHandler::getLine(std::string& line) {
-    //std::cerr << "get line"<<std::endl;
     return getFrameAscii(line, '\0');
 }
 
@@ -82,39 +78,30 @@ bool ConnectionHandler::sendLine(std::string& line) {
 
 
 bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
-    //std::cout<<"GEt frame asciii"<<std::endl;
     char ch;
     // Stop when we encounter the null character.
     // Notice that the null character is not appended to the frame string.
     try {
-        //std::cout<< "Trying"<<std::endl;
         int i = 0;
         do{
             if(!getBytes(&ch, 1))
             {
-                //std::cout<< "Can't read bytes"<<std::endl;
                 return false;
             }
             if(ch!='\0' || i < 3) {
-                /*std::cout<< "Bloop"<<std::endl;
-                if((ch == '\0'))
-                    std::cout<< ": ("<<std::endl;*/
                 frame.append(1, ch);
             }
-            //std::cout<< "Blam"<<std::endl;
             i = i + 1;
             if(i == 4){
                 if(((short)(frame[1] & 0xff)) == ((short)13)){
                     return true;
                 }
             }
-
         }while (delimiter != ch || i < 4);
     } catch (std::exception& e) {
         std::cerr << "recv failed2 Get from server (Error: " << e.what() << ')' << std::endl;
         return false;
     }
-    //std::cout<< "BLAA"<<std::endl;
     frame.append(1, '\0');
     return true;
 }
@@ -122,13 +109,11 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
 
 bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter) {
     bool result=sendBytes(frame.c_str(),frame.length());
-    //std::cout<<frame<<std::endl;
     if(!result) {
         std::cout<<"not sent"<<std::endl;
         return false;
     }
     return result;
-    //return sendBytes(&delimiter,1);
 }
 
 // Close down the connection properly.

@@ -24,7 +24,7 @@ private:
 
     MessageQueue &messageQueue;
 
-    //EncodeDecode encdec;
+
 };
 
 

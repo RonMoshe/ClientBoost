@@ -10,7 +10,6 @@ MessageQueue::MessageQueue(): messageQueue(), mtx(), terminate(false){}
 
 void MessageQueue::Enqueue(std::string msg){
     messageQueue.push_back(msg);
-    //std::cout<<"Added to queue"<<std::endl;
 }
 
 std::string MessageQueue::Dequeue() {
