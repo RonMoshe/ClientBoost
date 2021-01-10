@@ -17,6 +17,7 @@ void KeyboardReader::run() {
         std::cin.getline(buf, bufsize);
         std::string line(buf);
         //if(line.find("LOGOUT") != std::string::npos)
+        //std::cout<<line<<std::endl;
         messageQueue.Enqueue(line);
     }
 }

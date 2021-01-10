@@ -96,9 +96,9 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
                 return false;
             }
             if(ch!='\0' || i < 3) {
-                std::cout<< "Bloop"<<std::endl;
+                /*std::cout<< "Bloop"<<std::endl;
                 if((ch == '\0'))
-                    std::cout<< ": ("<<std::endl;
+                    std::cout<< ": ("<<std::endl;*/
                 frame.append(1, ch);
             }
             //std::cout<< "Blam"<<std::endl;

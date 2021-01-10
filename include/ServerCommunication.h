@@ -17,7 +17,7 @@ public:
 
     void run();
 private:
-    ConnectionHandler connectionHandler;
+    ConnectionHandler &connectionHandler;
 
     std::mutex &mtx;
 

@@ -6,8 +6,6 @@
 #include "../include/EncodeDecode.h"
 #include <boost/lexical_cast.hpp>
 
-//short bytesToShort(char *msg, int i);
-
 std::string EncodeDecode::Decode(char msg[]){
 
     std::string result = "";

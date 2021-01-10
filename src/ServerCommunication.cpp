@@ -12,6 +12,7 @@ void ServerCommunication::run() {
     EncodeDecode *encdec = new EncodeDecode();
     while (true) {
         if(!messageQueue.isEmpty()) {
+            std::cout<<"Message queue not empty"<<std::endl;
             std::string line = messageQueue.Dequeue();
             std::string encoded = encdec->Encode(line);
             //std::cout<<"after"<<std::endl;
