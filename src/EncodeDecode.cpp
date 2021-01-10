@@ -15,12 +15,11 @@ std::string EncodeDecode::Decode(char msg[]){
     //std::cout<<"msg op " + std::to_string(msgOpcode)<<std::endl;
     if(opcode == short(12)) {//ACK
         //std::cout<<"DECODEEE ACK"<<std::endl;
-        result = "ACK " + std::to_string(msgOpcode) + " ";
+        result = "ACK " + std::to_string(msgOpcode);
         int index = 4;
-        /*for(int i = 0 ; i <){
-            result.append(1, msg[index]);
-            index = index + 1;
-        }*/
+        if(msg[index] != '\0'){
+            result.append(1, '\n');
+        }
         while(msg[index] != '\0'){
             result.append(1, msg[index]);
             index = index + 1;
